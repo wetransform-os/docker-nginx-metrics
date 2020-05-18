@@ -1,7 +1,7 @@
 FROM fholzer/nginx-brotli
 
 # copy exporter
-COPY --from=quay.io/martinhelmich/prometheus-nginxlog-exporter:v1.4.1 /prometheus-nginxlog-exporter /prometheus-nginxlog-exporter
+COPY --from=wetransform/prometheus-nginxlog-exporter:custom-20200518 /prometheus-nginxlog-exporter /prometheus-nginxlog-exporter
 
 ADD ./wrapper.sh /wrapper.sh
 ADD ./default.yml /exporter.yml
