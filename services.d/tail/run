@@ -1,3 +1,0 @@
-#!/usr/bin/with-contenv sh
-echo >&2 "starting tail to follow log"
-tail -F /var/log/nginx/access.log

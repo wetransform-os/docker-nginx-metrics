@@ -11,6 +11,7 @@ namespaces:
         - /var/log/nginx/access.log
     # labels:
     #   app: "application-one"
+    print_log: true
     #   environment: "production"
     #   foo: "bar"
     # histogram_buckets: [.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10]
