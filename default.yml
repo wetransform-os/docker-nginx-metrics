@@ -2,16 +2,45 @@ listen:
   port: 6387
   # address: "10.1.2.3"
 
+# enable_experimental: true
+
 namespaces:
   - name: nginx
     # default log format
-    format: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" \"$http_x_forwarded_for\""
+    format: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" uhost=\"$proxy_host\" uaddr=\"$upstream_addr\" rt=$request_time uct=\"$upstream_connect_time\" uht=\"$upstream_header_time\" urt=\"$upstream_response_time\""
     source:
       files:
         - /var/log/nginx/access.log
+
     # labels:
     #   app: "application-one"
-    print_log: true
     #   environment: "production"
     #   foo: "bar"
+    
+    print_log: true
+
+    predate_initialization: 30s
+    
     # histogram_buckets: [.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10]
+
+    # disable_summary: true
+    # disable_histogram: true
+    
+    # relabel_configs:
+    # - target_label: test1
+    #   from: request
+    #   split: 2
+    #   matches:
+    #     - regexp: ".*test.*"
+    #       replacement: "test"
+    #     - regexp: ".*"
+    #       replacement: "No test"
+    # - target_label: test2
+    #   from: request
+    #   split: 2
+    #   only_counter: true
+    #   matches:
+    #     - regexp: ".*best.*"
+    #       replacement: "best"
+    #     - regexp: ".*"
+    #       replacement: "No best"
