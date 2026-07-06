@@ -1,0 +1,16 @@
+# Reference presets that should apply to this repository
+presets:
+  - dockerfile
+  - renovate
+  - workflows-default
+
+workflows:
+  check:
+    inputs:
+      image: wetransform/nginx-metrics
+  publish:
+    inputs:
+      image: wetransform/nginx-metrics
+  release:
+    inputs:
+      image: wetransform/nginx-metrics
