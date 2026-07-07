@@ -1,0 +1,37 @@
+plugins {
+  id 'java'
+  id 'org.jetbrains.kotlin.jvm' version '2.3.21'
+  id 'to.wetransform.conventions' version '3.0.0'
+}
+
+wetransform {
+  setup()
+}
+
+repositories {
+  mavenCentral()
+}
+
+kotlin {
+  jvmToolchain(21)
+}
+
+dependencies {
+  testImplementation testLibs.junit.jupiter
+  testImplementation testLibs.testcontainers.junit
+  testRuntimeOnly testLibs.junit.platform.launcher
+
+  testImplementation testLibs.slf4j.simple
+}
+
+tasks.register('buildDockerImage', Exec) {
+  commandLine 'docker', 'build', '-t', 'wetransform/nginx-metrics:test', '.'
+}
+
+test {
+  useJUnitPlatform()
+  dependsOn buildDockerImage
+  // re-run tests when the image definition changes, not only when test code changes
+  inputs.files('Dockerfile', 'nginx.conf', 'default.yml')
+  inputs.dir('services.d')
+}
