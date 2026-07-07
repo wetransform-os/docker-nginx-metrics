@@ -1,0 +1,17 @@
+---
+#
+# PLEASE NOTE: Managed workflow - do not change manually
+#
+name: Check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check:
+    uses: wetransform/gha-workflows/.github/workflows/dockerfile-build.yml@109404d78d84f07b3bb374a8171f8df4c13a7e88 # v4.1.4
+    with:
+      image: wetransform/nginx-metrics
+      tag: pr
