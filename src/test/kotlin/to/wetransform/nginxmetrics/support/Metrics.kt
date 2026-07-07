@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 wetransform GmbH
+ * All rights reserved.
+ */
 package to.wetransform.nginxmetrics.support
 
 import java.net.URI
@@ -29,23 +33,21 @@ object Metrics {
     return parse(response.body())
   }
 
-  fun parse(body: String): List<MetricSample> =
-    body.lineSequence()
-      .filter { it.isNotBlank() && !it.startsWith("#") }
-      .mapNotNull { line ->
-        val match = sampleLine.find(line) ?: return@mapNotNull null
-        val (name, labelBlock, value) = match.destructured
-        val labels = labelPair.findAll(labelBlock)
-          .associate { it.groupValues[1] to it.groupValues[2] }
-        value.toDoubleOrNull()?.let { MetricSample(name, labels, it) }
-      }
-      .toList()
+  fun parse(body: String): List<MetricSample> = body.lineSequence()
+    .filter { it.isNotBlank() && !it.startsWith("#") }
+    .mapNotNull { line ->
+      val match = sampleLine.find(line) ?: return@mapNotNull null
+      val (name, labelBlock, value) = match.destructured
+      val labels = labelPair.findAll(labelBlock)
+        .associate { it.groupValues[1] to it.groupValues[2] }
+      value.toDoubleOrNull()?.let { MetricSample(name, labels, it) }
+    }
+    .toList()
 
   /** Value of the first sample named [name] whose labels contain all entries of [labels]. */
-  fun List<MetricSample>.value(name: String, labels: Map<String, String> = emptyMap()): Double? =
-    firstOrNull { sample ->
-      sample.name == name && labels.all { (key, value) -> sample.labels[key] == value }
-    }?.value
+  fun List<MetricSample>.value(name: String, labels: Map<String, String> = emptyMap()): Double? = firstOrNull { sample ->
+    sample.name == name && labels.all { (key, value) -> sample.labels[key] == value }
+  }?.value
 
   /**
    * Polls [endpoint] until [condition] holds for the matching sample's value (null while
@@ -73,13 +75,12 @@ object Metrics {
     }
     throw AssertionError(
       "Metric $name$labels did not reach the expected condition within $timeout.\n" +
-        "Last /metrics snapshot:\n$lastBody"
+        "Last /metrics snapshot:\n$lastBody",
     )
   }
 
-  private fun send(endpoint: URI): HttpResponse<String> =
-    client.send(
-      HttpRequest.newBuilder(endpoint).GET().build(),
-      HttpResponse.BodyHandlers.ofString(),
-    )
+  private fun send(endpoint: URI): HttpResponse<String> = client.send(
+    HttpRequest.newBuilder(endpoint).GET().build(),
+    HttpResponse.BodyHandlers.ofString(),
+  )
 }

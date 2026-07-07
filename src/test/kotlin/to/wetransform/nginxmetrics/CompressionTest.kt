@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2026 wetransform GmbH
+ * All rights reserved.
+ */
 package to.wetransform.nginxmetrics
 
 import org.junit.jupiter.api.Assertions.assertEquals
