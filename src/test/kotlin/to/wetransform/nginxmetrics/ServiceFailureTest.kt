@@ -1,10 +1,14 @@
+/*
+ * Copyright (c) 2026 wetransform GmbH
+ * All rights reserved.
+ */
 package to.wetransform.nginxmetrics
 
-import java.time.Duration
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Test
 import to.wetransform.nginxmetrics.support.NginxMetricsContainer
+import java.time.Duration
 
 class ServiceFailureTest {
 
