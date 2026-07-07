@@ -1,0 +1,21 @@
+listen:
+  port: 6387
+
+# required for relabel_configs
+enable_experimental: true
+
+namespaces:
+  - name: nginx
+    # must match log_format main in nginx.conf (see also default.yml)
+    format: "$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" uhost=\"$proxy_host\" uaddr=\"$upstream_addr\" rt=$request_time uct=\"$upstream_connect_time\" uht=\"$upstream_header_time\" urt=\"$upstream_response_time\""
+    source:
+      files:
+        - /var/log/nginx/access.log
+
+    print_log: true
+
+    predate_initialization: 30s
+
+    relabel_configs:
+      - target_label: upstream
+        from: proxy_host
