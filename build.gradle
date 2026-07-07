@@ -12,10 +12,6 @@ repositories {
   mavenCentral()
 }
 
-kotlin {
-  jvmToolchain(21)
-}
-
 dependencies {
   testImplementation testLibs.junit.jupiter
   testImplementation testLibs.testcontainers.junit
