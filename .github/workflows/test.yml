@@ -1,0 +1,15 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    uses: wetransform/gha-workflows/.github/workflows/gradle-library-check.yml@109404d78d84f07b3bb374a8171f8df4c13a7e88 # v4.1.4
+    with:
+      java-version: 21
+      multi-module: false
+      skip-scan: true
