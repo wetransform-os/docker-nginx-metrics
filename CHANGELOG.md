@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/wetransform-os/docker-nginx-metrics/compare/v1.0.1...v1.0.2) (2026-11-19)
+
+### Bug Fixes
+
+* **deps:** update base image version to 1.31.9 ([ab031d9](https://github.com/wetransform-os/docker-nginx-metrics/commit/ab031d97f629ced2f75b5cc6ea696f9bcde500fd))
+
 ## [1.0.1](https://github.com/wetransform-os/docker-nginx-metrics/compare/v1.0.0...v1.0.1) (2026-07-07)
 
 ### Bug Fixes
