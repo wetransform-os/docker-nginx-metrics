@@ -1,4 +1,4 @@
-FROM fholzer/nginx-brotli:v1.31.9
+FROM fholzer/nginx-brotli:v1.31.10
 
 # setup s6 overlay
 # see https://github.com/just-containers/s6-overlay
